@@ -735,6 +735,7 @@
                         </toolbar>
                     </window>
                     <connections>
+                        <outlet property="buttonGo" destination="mZ9-DD-1Dt" id="tNf-oj-PJh"/>
                         <outlet property="buttonShot" destination="Ael-fC-QXC" id="CiY-Ay-Vmz"/>
                         <outlet property="textUrl" destination="9BY-2N-vrU" id="SK2-Pz-SBU"/>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -762,7 +763,7 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="oldView" destination="vVG-Ik-Wyf" id="Ca2-8S-TUe"/>
+                        <outlet property="webView" destination="vVG-Ik-Wyf" id="afY-X3-Nx3"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

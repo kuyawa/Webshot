@@ -9,10 +9,19 @@
 import Cocoa
 import WebKit
 
+class WindowController: NSWindowController {
+    
+    // Address bar in Toolbar
+    @IBOutlet weak var textUrl: NSTextField!
+    @IBOutlet weak var buttonGo: NSButton!
+    @IBOutlet weak var buttonShot: NSButton!
+    
+}
+
+
 class ViewController: NSViewController, WebFrameLoadDelegate {
 
-    @IBOutlet weak var webView: WKWebView!
-    @IBOutlet weak var oldView: WebView!
+    @IBOutlet weak var webView: WebView!
 
     @IBAction func onNavigate(_ sender: Any) {
         let wc = self.view.window?.windowController as! WindowController
@@ -20,7 +29,7 @@ class ViewController: NSViewController, WebFrameLoadDelegate {
         let address = wc.textUrl.stringValue
         let url = URL(string: address)!
         let req = URLRequest(url: url)
-        oldView.mainFrame.load(req)
+        webView.mainFrame.load(req)
     }
 
     @IBAction func onWebshot(_ sender: Any) {
@@ -29,7 +38,7 @@ class ViewController: NSViewController, WebFrameLoadDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        oldView.frameLoadDelegate = self
+        webView.frameLoadDelegate = self
     }
     
     override func viewDidAppear() {
@@ -47,12 +56,11 @@ class ViewController: NSViewController, WebFrameLoadDelegate {
     func takeWebshot() {
         let folder = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
         let url =  folder.appendingPathComponent("screenshot\(Date().epoch).jpg")
-        print("Write to ", url)
-        let image = oldView.webshot()
+        //print("Write to ", url)
+        let image = webView.webshot()
         do {
             try image.jpg?.write(to: url)
-            // show in preview
-            NSWorkspace.shared().open(url)
+            NSWorkspace.shared().open(url)   // show in preview
         }
         catch { print("Error: ", error) }
     }

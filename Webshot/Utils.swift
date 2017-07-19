@@ -44,7 +44,7 @@ extension NSImage {
         guard let url = URL(string: path) else { return false }
         
         do {
-            try png?.write(to: url, options: .atomic)
+            try jpg?.write(to: url, options: .atomic)
             return true
         } catch {
             print(error.localizedDescription)
