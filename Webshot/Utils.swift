@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import Foundation
+import WebKit
 
 extension NSImage {
     var png: Data? {
@@ -58,6 +58,18 @@ extension Date {
     
     static func epoch(_ time: Int) -> Date {
         return Date(timeIntervalSince1970: TimeInterval(time))
+    }
+}
+
+extension WebView {
+    func webshot() -> NSImage {
+        let doc  = self.mainFrame.frameView.documentView!
+        let rect = doc.bounds
+        let size = NSSize(width: rect.width, height: rect.height)
+        //Swift.print("Size: ", size)
+        let bitmap = doc.bitmapImageRepForCachingDisplay(in: rect)!
+        doc.cacheDisplay(in: rect, to: bitmap)
+        return NSImage(cgImage: bitmap.cgImage!, size: size)
     }
 }
 
