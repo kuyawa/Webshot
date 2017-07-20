@@ -45,7 +45,7 @@ class ViewController: NSViewController, WebFrameLoadDelegate {
     
     func takeWebshot() {
         let folder = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
-        let url =  folder.appendingPathComponent("screenshot\(Date().epoch).jpg")
+        let url =  folder.appendingPathComponent("webshot\(Date().epoch).jpg")
         let image = webView.webshot()
         
         do {
