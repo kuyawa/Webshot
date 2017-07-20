@@ -9,23 +9,16 @@
 import Cocoa
 import WebKit
 
-class WindowController: NSWindowController {
-    // Toolbar items
+class ViewController: NSViewController, WebFrameLoadDelegate {
+    
     @IBOutlet weak var textUrl    : NSTextField!
     @IBOutlet weak var buttonGo   : NSButton!
     @IBOutlet weak var buttonShot : NSButton!
-}
-
-
-class ViewController: NSViewController, WebFrameLoadDelegate {
-    
-    var toolbar = WindowController()
-
-    @IBOutlet weak var webView: WebView!
+    @IBOutlet weak var webView    : WebView!
 
     @IBAction func onNavigate(_ sender: Any) {
-        toolbar.buttonShot.isEnabled = false
-        let address = toolbar.textUrl.stringValue
+        buttonShot.isEnabled = false
+        let address = textUrl.stringValue
         let url = URL(string: address)!
         let req = URLRequest(url: url)
         webView.mainFrame.load(req)
@@ -42,13 +35,12 @@ class ViewController: NSViewController, WebFrameLoadDelegate {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        toolbar = self.view.window?.windowController as! WindowController
-        toolbar.textUrl.stringValue = "http://example.com"
-        toolbar.buttonShot.isEnabled = false
+        textUrl.stringValue = "http://example.com"
+        buttonShot.isEnabled = false
     }
 
     func webView(_ sender: WebView!, didFinishLoadFor frame: WebFrame!) {
-        toolbar.buttonShot.isEnabled = true
+        buttonShot.isEnabled = true
     }
     
     func takeWebshot() {
